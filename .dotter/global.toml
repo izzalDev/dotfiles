@@ -1,0 +1,34 @@
+# Config file for Unix-like systems (with specific adjustments for macOS)
+# Some configurations in macOS are different
+# macOS-specific configurations can be added in .dotter/macos.toml
+
+[helpers]
+concat = ".dotter/helpers/concat.rhai"
+
+[default.variables]
+pre_deploy_scripts = []
+post_deploy_scripts = []
+pre_undeploy_scripts = []
+post_undeploy_scripts = []
+
+[settings]
+default_target_type = "automatic"
+
+[ghostty.files]
+"ghostty/config" = "~/.config/ghostty/config"
+
+[vscode.variables]
+vscode.extensions = [
+    "chrisbibby.hide-git-ignored",
+    "chrisdias.vscode-opennewinstance",
+    "dart-code.dart-code",
+    "dart-code.flutter",
+    "github.vscode-github-actions",
+    "ivhernandez.vscode-plist",
+    "mads-hartmann.bash-ide-vscode",
+    "mishkinf.file-path-commenter",
+    "ms-vscode.powershell",
+    "rhaiscript.vscode-rhai",
+    "tamasfe.even-better-toml",
+    "zwyx.autoclosetabs",
+]

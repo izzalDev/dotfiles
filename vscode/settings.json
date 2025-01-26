@@ -1,0 +1,40 @@
+{
+    "window.restoreWindows": "none",
+    "workbench.startupEditor": "welcomePageInEmptyWorkbench",
+    "workbench.editor.enablePreviewFromCodeNavigation": true,
+    "workbench.editor.enablePreviewFromQuickOpen": true,
+    "editor.rulers": [
+        80
+    ],
+    "insertFilename.usePath": true,
+    "insertFilename.fileExtensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".dart"
+    ],
+    "filePathCommenter.includePaths": [
+        "src",
+        "lib"
+    ],
+    "workbench.panel.showLabels": false,
+    "maximizeterminal.useAlternativeKeybinding": true,
+    "git.openRepositoryInParentFolders": "always",
+    "workbench.activityBar.location": "top",
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1
+    },
+    "[shellscript]": {
+        "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode"
+    },
+    "evenBetterToml.formatter.indentTables": false,
+    "evenBetterToml.formatter.indentEntries": false,
+    "evenBetterToml.formatter.indentString": ""
+}
