@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+trap 'exit' SIGINT
 source .dotter/helpers/log.sh
 
 {{#each pre_undeploy_scripts}}

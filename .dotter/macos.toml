@@ -6,12 +6,15 @@
 [default.variables]
 platform = "Darwin"
 pre_deploy_scripts = [
+    "default/pre_deploy.sh",
+    "brew/pre_deploy.sh",
     "vscode/pre_deploy.sh",
-    "default/pre_deploy.sh"
 ]
-post_deploy_scripts = []
-pre_undeploy_scripts = ["default/pre_undeploy.sh"]
-post_undeploy_scripts = []
+pre_undeploy_scripts = [
+    "default/pre_undeploy.sh"
+]
+# post_deploy_scripts = []
+# post_undeploy_scripts = []
 
 [default.variables.preferences]
 "com.apple.screencapture" = [
@@ -29,7 +32,7 @@ post_undeploy_scripts = []
 
 [brew]
 [brew.variables]
-cask = [
+brew.cask = [
     "visual-studio-code",
     "gimp",
     "onlyoffice",
@@ -39,7 +42,7 @@ cask = [
     "miniconda",
     "flutter"
 ]
-formula = [
+brew.formula = [
     "mas",
     "git",
     "gh",
