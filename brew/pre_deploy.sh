@@ -24,7 +24,7 @@ handle_error() {
 # Install missing formula
 for item in "${required_formula[@]}"; do
     if ! echo "${installed_formula[@]}" | grep -qw "$item"; then
-        result=$(brew install "$item")
+        brew install "$item"
         handle_error "Failed to install formula: $item"
         echo "$info $add Installed formula: $item"
     fi
