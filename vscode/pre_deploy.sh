@@ -7,15 +7,19 @@ if ! code --version >>/dev/null; then
 fi
 
 installed_extensions=$(code --list-extensions)
-required_extensions=$(echo "{{ vscode.extensions }}" | tr -d "[],")
+required_extensions=(
+    {{#each vscode.extensions}}
+    {{@this}}
+    {{/each}}
+)
 
-for extension in $required_extensions; do
+for extension in ${required_extensions[@]}; do
     if ! echo $installed_extensions | grep -q $extension; then
         echo "$info $add Installing vscode $extension extension"
         code --install-extension $extension
     fi
 done
-for extension in $installed_extensions; do
+for extension in ${installed_extensions[@]}; do
     if ! echo $required_extensions | grep -q $extension; then
         echo "$warn $remove Uninstalling vscode $extension extension"
         code --uninstall-extension $extension
