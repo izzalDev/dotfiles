@@ -15,7 +15,8 @@ post_undeploy_scripts = []
 
 [default.variables.preferences]
 "com.apple.screencapture" = [
-    { key = "disable-shadow", type = "bool", value = false }
+    { key = "disable-shadow", type = "bool", value = false },
+    { key = "location", type="string", value="~/Captures" }
 ]
 
 "com.apple.dock" = [
