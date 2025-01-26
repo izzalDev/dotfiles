@@ -33,14 +33,13 @@ for pref in "${current_pref[@]}"; do
     fi
 
     if [ -z "$old_type" ] || [ -z "$old_value" ]; then
-        echo "$info $add Added preference $domain $new_key: $new_value"
+        echo "$info $add Added preference $domain $key: $new_value"
         echo "$pref" >> "$pref_cache"
+        [ "$domain" == "com.apple.dock" ] && dock_changed=true
     elif [ "$old_type $old_value" != "$new_type $new_value" ]; then
         echo "$info $change Changed preference $domain $key: $old_value -> $new_value"
         sed -i '' "s/$old_pref/$pref/" $pref_cache
-    fi
-    if echo grep -q "com.apple.dock" $pref_cache; then
-        killall Dock
+        [ "$domain" == "com.apple.dock" ] && dock_changed=true
     fi
 done
 
@@ -57,10 +56,13 @@ while IFS= read -r pref; do
         exit $?
     fi
 
-    sed -i '' "/$pref/d" "$pref_cache"
+    [ "$domain" == "com.apple.dock" ] && dock_changed=true
+
+    sed -i '' "\|$pref|d" "$pref_cache"
     echo "$warn $remove Removed preference $domain $key $type $value"
-    if echo grep -q "com.apple.dock" $pref_cache; then
-        killall Dock
-    fi
 done < $pref_cache
+
+if [ "$dock_changed" = true ]; then
+    killall Dock
+fi
 {{/if}}
