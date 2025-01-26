@@ -40,7 +40,9 @@ brew.cask = [
     "the-unarchiver",
     "ghostty",
     "miniconda",
-    "flutter"
+    "flutter",
+    "android-commandlinetools",
+    "temurin",
 ]
 brew.formula = [
     "mas",
@@ -49,7 +51,9 @@ brew.formula = [
     "pre-commit",
     "colima",
     "docker",
-    "koekeishiya/formulae/yabai"
+    "koekeishiya/formulae/yabai",
+    "cocoapods",
+    "htop",
 ]
 
 # =============================================================================
