@@ -76,20 +76,20 @@ fi
 installed_packages=$({{this.list_cmd}})
 required_packages=(
     {{#each this.items}}
-    {{this}}
+    "{{this}}"
     {{/each}}
 )
 
 # Install missing packages
 for package in "${required_packages[@]}"; do
     if ! echo "$installed_packages" | grep -qw "$package"; then
-        {{this.install_cmd}} "$package"
+        {{this.install_cmd}} $package
         echo "$info $add Installed $package to {{@key}}"
     fi
 done
 
 # Uninstall extra packages
-for package in "${installed_packages[@]}"; do
+for package in $installed_packages; do
     if ! echo "${required_packages[@]}" | grep -qw "$package"; then
         {{this.uninstall_cmd}} "$package"
         echo "$warn $remove Removed $package from {{@key}}"

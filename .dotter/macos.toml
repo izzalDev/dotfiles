@@ -9,7 +9,6 @@ post_deploy_scripts = []
 post_undeploy_scripts = []
 pre_deploy_scripts = [
   "default/pre_deploy.sh",
-  "brew/pre_deploy.sh",
   "vscode/pre_deploy.sh",
 ]
 pre_undeploy_scripts = ["default/pre_undeploy.sh"]
@@ -43,6 +42,7 @@ items = [
   "flutter",
   "android-commandlinetools",
   "temurin",
+  "google-chrome"
 ]
 list_cmd = "brew list --cask"
 uninstall_cmd = "brew uninstall --zap"
@@ -52,7 +52,7 @@ install_cmd = "mas install"
 items = [
   497799835, # Xcode
 ]
-list_cmd = "mas list"
+list_cmd = "mas list | awk '{print $1}'"
 uninstall_cmd = "sudo mas uninstall"
 
 [default.variables.preferences]
