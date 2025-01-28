@@ -1,88 +1,84 @@
 # macOS-specific configurations
 # =============================================================================
+
 # Default Variables Configuration
 # =============================================================================
-
 [default.variables]
 platform = "Darwin"
+post_deploy_scripts = []
+post_undeploy_scripts = []
 pre_deploy_scripts = [
-    "default/pre_deploy.sh",
-    "brew/pre_deploy.sh",
-    "vscode/pre_deploy.sh",
+  "default/pre_deploy.sh",
+  "brew/pre_deploy.sh",
+  "vscode/pre_deploy.sh",
 ]
-pre_undeploy_scripts = [
-    "default/pre_undeploy.sh"
+pre_undeploy_scripts = ["default/pre_undeploy.sh"]
+
+[default.variables.packages.brew]
+install_cmd = "brew install --formula"
+items = [
+  "mas",
+  "git",
+  "gh",
+  "pre-commit",
+  "colima",
+  "docker",
+  "koekeishiya/formulae/yabai",
+  "cocoapods",
+  "htop",
 ]
-# post_deploy_scripts = []
-# post_undeploy_scripts = []
+list_cmd = "brew leaves"
+uninstall_cmd = "brew uninstall --formula"
+
+[default.variables.packages.cask]
+install_cmd = "brew install --cask"
+items = [
+  "visual-studio-code",
+  "gimp",
+  "onlyoffice",
+  "arc",
+  "the-unarchiver",
+  "ghostty",
+  "miniconda",
+  "flutter",
+  "android-commandlinetools",
+  "temurin",
+]
+list_cmd = "brew list --cask"
+uninstall_cmd = "brew uninstall --zap"
+
+[default.variables.packages.mas]
+install_cmd = "mas install"
+items = [
+  497799835, # Xcode
+]
+list_cmd = "mas list"
+uninstall_cmd = "sudo mas uninstall"
 
 [default.variables.preferences]
-"com.apple.screencapture" = [
-    { key = "disable-shadow", type = "bool", value = false },
-    { key = "location", type="string", value="~/Captures" }
-]
-
 "com.apple.dock" = [
-    { key = "wvous-br-corner", type = "int", value = 0 }
+  {key = "wvous-br-corner", type = "int", value = 0},
 ]
-
-# =============================================================================
-# Brew Package Manager Configuration
-# =============================================================================
-
-[brew]
-[brew.variables]
-brew.cask = [
-    "visual-studio-code",
-    "gimp",
-    "onlyoffice",
-    "arc",
-    "the-unarchiver",
-    "ghostty",
-    "miniconda",
-    "flutter",
-    "android-commandlinetools",
-    "temurin",
+"com.apple.screencapture" = [
+  {key = "disable-shadow", type = "bool", value = false},
+  {key = "location", type = "string", value = "~/Captures"},
 ]
-brew.formula = [
-    "mas",
-    "git",
-    "gh",
-    "pre-commit",
-    "colima",
-    "docker",
-    "koekeishiya/formulae/yabai",
-    "cocoapods",
-    "htop",
-]
-
-# =============================================================================
-# macOS App Store Applications
-# =============================================================================
-
-[mas.variables.mas.app]
-Xcode = 497799835
 
 # =============================================================================
 # Ghostty Configuration
 # =============================================================================
-
 [ghostty.files]
 "ghostty/config" = "~/Library/Application Support/com.mitchellh.ghostty/config"
 
 # =============================================================================
 # VSCode Configuration
 # =============================================================================
-
 [vscode.files]
-"vscode/settings.json" = "~/Library/Application Support/Code/User/settings.json"
 "vscode/keybindings.json" = "~/Library/Application Support/Code/User/keybindings.json"
+"vscode/settings.json" = "~/Library/Application Support/Code/User/settings.json"
 
 # =============================================================================
 # Zsh Configuration
 # =============================================================================
-
 [zsh.files]
 "shell/profile" = "~/.zprofile"
-
-# =============================================================================
