@@ -1,2 +1,3 @@
 window-width = 80
 window-height = 24
+quit-after-last-window-closed = true
