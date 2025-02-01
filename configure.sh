@@ -94,3 +94,5 @@ function download_things() {
 # Start the download process
 download_things 2> >(while read -r line; do echo -e "${GREEN}$line${NC}" ; done) \
                  1> >(while read -r line; do echo -e "${GREEN}$line${NC}" ; done)
+
+./dotter
