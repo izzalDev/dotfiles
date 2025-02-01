@@ -23,4 +23,4 @@ ${PATH}"
 
 # MANPATH and INFOPATH - these are generally fine, but can be simplified slightly
 export MANPATH="${MANPATH:+:$MANPATH}"  # More concise way to prepend if MANPATH is set
-export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"export HOMEBREW_PREFIX="/opt/homebrew";
