@@ -1,1 +1,26 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools/
+
+# HOMEBREW variables - these are usually set by brew shellenv, avoid redundancy
+# export HOMEBREW_PREFIX="/opt/homebrew"
+# export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+# export HOMEBREW_REPOSITORY="/opt/homebrew"
+
+# PATH adjustments - combine and remove duplicates, use multiline for readability
+export PATH=" \
+/usr/local/texlive/2024/bin/universal-darwin: \
+/opt/homebrew/bin: \
+/opt/homebrew/sbin: \
+/usr/local/bin: \
+/System/Cryptexes/App/usr/bin: \
+/usr/bin: \
+/usr/sbin: \
+/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin: \
+/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin: \
+/Library/Apple/usr/bin: \
+${PATH}"
+
+# MANPATH and INFOPATH - these are generally fine, but can be simplified slightly
+export MANPATH="${MANPATH:+:$MANPATH}"  # More concise way to prepend if MANPATH is set
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
