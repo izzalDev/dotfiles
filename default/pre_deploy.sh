@@ -1,4 +1,5 @@
 {{#if (eq platform "Darwin")}}
+echo {{concat " " platform "halo"}}
 pref_cache=".dotter/cache/preferences.txt"
 
 if [ ! -f "$pref_cache" ]; then
@@ -49,8 +50,11 @@ while IFS= read -r pref; do
         continue
     fi
 
-    result=$(defaults delete $domain $key 2>&1)
-    if [ $? -ne 0 ]; then
+    if ! defaults read $domain $key; then
+        continue
+    fi
+
+    if ! defaults delete $domain $key 2>&1; then
         echo "$error Failed to remove preference for $domain $key"
         echo "$result"
         exit $?
@@ -68,10 +72,16 @@ fi
 {{/if}}
 
 {{#each packages}}
+{{#if this.items}}
 if ! command -v {{this.list_cmd}} &>/dev/null; then
     echo "$error Failed to migrate packages from {{@key}}."
     echo "{{@key}} is either not installed or not available in the PATH."
     exit 1
+fi
+
+pkg_cache=".dotter/cache/{{@key}}.txt"
+if [[ ! -f $pkg_cache ]]; then
+    touch $pkg_cache
 fi
 installed_packages=$({{this.list_cmd}})
 required_packages=(
@@ -82,17 +92,31 @@ required_packages=(
 
 # Install missing packages
 for package in "${required_packages[@]}"; do
-    if ! echo "$installed_packages" | grep -qw "$package"; then
-        {{this.install_cmd}} $package
-        echo "$info $add Installed $package to {{@key}}"
+    if echo "$installed_packages" | grep -qw "$package"; then
+        continue
     fi
+    if grep -qw "$package" "$pkg_cache"; then
+        continue
+    fi
+    if ! {{this.install_cmd}} $package; then
+        echo "$error Failed to install $package from {{@key}}"
+        exit $?
+    fi
+    echo "$info $add Installed $package to {{@key}}"
+    echo "$package" >> "$pkg_cache"
 done
 
 # Uninstall extra packages
-for package in $installed_packages; do
-    if ! echo "${required_packages[@]}" | grep -qw "$package"; then
-        {{this.uninstall_cmd}} "$package"
-        echo "$warn $remove Removed $package from {{@key}}"
+while IFS= read -r package; do
+    if echo "${required_packages[@]}" | grep -qw "$package"; then
+        continue
     fi
-done
+    if ! {{this.uninstall_cmd}} "$package"; then
+        echo "$error Failed to remove $package from $key"
+        exit $?
+    fi
+    echo "$warn $remove Removed $package from {{@key}}"
+    sed -i '' "\|$package|d" "$pkg_cache"
+done < $pkg_cache
+{{/if}}
 {{/each}}
